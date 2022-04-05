@@ -8,18 +8,27 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="shortcut icon" href="#" />
 
-    <script src="https://kit.fontawesome.com/635f50260c.js" crossorigin="anonymous"></script>
-    <script src="javascript.js" defer></script>
-
     <script src="./vanta/p5.min.js"></script>
     <script src="./vanta/vanta.trunk.min.js"></script>
+    <script src="https://kit.fontawesome.com/635f50260c.js" crossorigin="anonymous"></script>
+    <script src="javascript.js" defer></script>
 
     <title>Pixel Sketch</title>
   </head>
   <body>
     <main>
       <h1>Pixel Sketch</h1>
-      <div class="sketchpad"></div>
+      <div class="sketch-area">
+        <div class="sketch-settings">
+          <input id="colorPicker" type="color" value="#333333" />
+          <button type="button" id="button-color" class="">Color Mode</button>
+          <button type="button" id="button-rainbow" class="">Rainbow Mode</button>
+          <button type="button" id="button-transparent" class="">Transparent Mode</button>
+          <button type="button" id="button-eraser" class="">Eraser</button>
+          <button type="button" id="button-clear" class="">Clear</button>
+        </div>
+        <div class="sketchpad"></div>
+      </div>
       <div class="slider-container">
         <p id="grid-size-output">16 X 16</p>
         <input type="range" min="1" max="64" value="16" class="slider" id="grid-size" />
