@@ -1,3 +1,4 @@
+const colorPicker = document.querySelector("#color-picker");
 const sketchpad = document.querySelector(".sketchpad");
 const gridSize = document.querySelector("#grid-size");
 const gridSizeOutput = document.querySelector("#grid-size-output");
@@ -37,12 +38,12 @@ function createGrid(gridSize) {
 
 function startDrawing() {
   isDrawing = true;
-  this.classList.add("color-black");
+  this.style.backgroundColor = colorPicker.value;
 }
 
 function continueDrawing() {
   if (isDrawing === true) {
-    this.classList.add("color-black");
+    this.style.backgroundColor = colorPicker.value;
   }
 }
 
@@ -61,3 +62,11 @@ VANTA.TRUNK({
   backgroundColor: 0xfcfcfc,
   spacing: 15.0,
 });
+
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) => button.addEventListener("click", activateButton));
+
+function activateButton() {
+  buttons.forEach((button) => button.classList.remove("button-selected"));
+  this.classList.add("button-selected");
+}
