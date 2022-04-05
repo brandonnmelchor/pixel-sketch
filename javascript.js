@@ -24,5 +24,5 @@ function createGrid(gridSize) {
   sketchpad.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
 }
 
-createDivs(16);
-createGrid(16);
+createDivs(gridSize.value);
+createGrid(gridSize.value);
