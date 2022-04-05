@@ -4,7 +4,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  border: 1px gray solid;
+  /* border: 1px gray solid; */
 }
 
 html {
@@ -40,14 +40,66 @@ h1 {
 .sketch-area {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 2rem;
-  max-width: 50vw;
+  gap: 3rem;
+  max-width: 60vw;
 }
 
 .sketch-settings {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+input[type='color'] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 8rem;
+  height: 8rem;
+  background-color: transparent;
+  border: none;
+}
+
+input[type='color']::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input[type='color']::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+
+input[type='color'],
+button {
+  transition: transform 0.1s ease-in-out;
+}
+
+input[type='color']:hover,
+button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+input[type='color']:active {
+  transition: transform 0.05s ease-in-out;
+  transform: scale(1);
+}
+
+button {
+  width: 10rem;
+  height: 2.5rem;
+  font-family: inherit;
+  font-size: .8rem;
+  color: inherit;
+  background-color: #fcfaf8;
+  border: 1px solid #263140;
+  border-radius: 0.5rem;
+}
+
+.button-selected {
+  color: #fcfaf8;
+  background-color: #263140;
 }
 
 .sketchpad {
@@ -81,7 +133,7 @@ h1 {
   appearance: none;
   width: 100%;
   height: 0.5rem;
-  background: white;
+  background: #fcfaf8;
   border: 1px solid #263140;
   border-radius: 1rem;
   cursor: pointer;
