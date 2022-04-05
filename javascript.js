@@ -1,9 +1,11 @@
 const colorPicker = document.querySelector("#color-picker");
+colorPicker.addEventListener("input", updatePixelColor);
+let pixelColor = colorPicker.value;
+
+let isDrawing = false;
 const sketchpad = document.querySelector(".sketchpad");
 const gridSize = document.querySelector("#grid-size");
 const gridSizeOutput = document.querySelector("#grid-size-output");
-
-let isDrawing = false;
 
 gridSize.addEventListener("input", () => {
   printGridSize(gridSize.value);
@@ -38,12 +40,12 @@ function createGrid(gridSize) {
 
 function startDrawing() {
   isDrawing = true;
-  this.style.backgroundColor = colorPicker.value;
+  this.style.backgroundColor = pixelColor;
 }
 
 function continueDrawing() {
   if (isDrawing === true) {
-    this.style.backgroundColor = colorPicker.value;
+    this.style.backgroundColor = pixelColor;
   }
 }
 
@@ -69,10 +71,26 @@ buttons.forEach((button) => button.addEventListener("click", activateButton));
 function activateButton() {
   buttons.forEach((button) => button.classList.remove("button-selected"));
   this.classList.add("button-selected");
-
   let buttonSelected = this.attributes["id"].nodeValue;
-  if (buttonSelected === "clear") {
+
+  if (buttonSelected === "color-mode") {
+    colorPicker.addEventListener("input", updatePixelColor);
+    pixelColor = colorPicker.value;
+  } else if (buttonSelected === "rainbow-mode") {
+    colorPicker.removeEventListener("input", updatePixelColor);
+    console.log(buttonSelected);
+  } else if (buttonSelected === "transparent-mode") {
+    colorPicker.removeEventListener("input", updatePixelColor);
+    pixelColor = "transparent";
+  } else if (buttonSelected === "eraser-mode") {
+    colorPicker.removeEventListener("input", updatePixelColor);
+    pixelColor = "#fcfcfc";
+  } else {
     newSketchpad(gridSize.value);
     setTimeout(() => this.classList.remove("button-selected"), 100);
   }
+}
+
+function updatePixelColor() {
+  pixelColor = this.value;
 }
