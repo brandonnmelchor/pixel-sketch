@@ -1,11 +1,13 @@
+const sketchpad = document.querySelector(".sketchpad");
+const gridSize = document.querySelector("#grid-size");
+const gridSizeOutput = document.querySelector("#grid-size-output");
+
 const colorPicker = document.querySelector("#color-picker");
 colorPicker.addEventListener("input", updatePixelColor);
 let pixelColor = colorPicker.value;
 
 let isDrawing = false;
-const sketchpad = document.querySelector(".sketchpad");
-const gridSize = document.querySelector("#grid-size");
-const gridSizeOutput = document.querySelector("#grid-size-output");
+let isRainbow = false;
 
 gridSize.addEventListener("input", () => {
   printGridSize(gridSize.value);
@@ -40,12 +42,21 @@ function createGrid(gridSize) {
 
 function startDrawing() {
   isDrawing = true;
-  this.style.backgroundColor = pixelColor;
+
+  if (isRainbow === true) {
+    this.style.backgroundColor = `#${createRainbow()}`;
+  } else {
+    this.style.backgroundColor = pixelColor;
+  }
 }
 
 function continueDrawing() {
   if (isDrawing === true) {
-    this.style.backgroundColor = pixelColor;
+    if (isRainbow === true) {
+      this.style.backgroundColor = `#${createRainbow()}`;
+    } else {
+      this.style.backgroundColor = pixelColor;
+    }
   }
 }
 
@@ -76,21 +87,33 @@ function activateButton() {
   if (buttonSelected === "color-mode") {
     colorPicker.addEventListener("input", updatePixelColor);
     pixelColor = colorPicker.value;
+    isRainbow = false;
   } else if (buttonSelected === "rainbow-mode") {
     colorPicker.removeEventListener("input", updatePixelColor);
-    console.log(buttonSelected);
+    isRainbow = true;
   } else if (buttonSelected === "transparent-mode") {
     colorPicker.removeEventListener("input", updatePixelColor);
     pixelColor = "transparent";
+    isRainbow = false;
   } else if (buttonSelected === "eraser-mode") {
     colorPicker.removeEventListener("input", updatePixelColor);
     pixelColor = "#fcfcfc";
+    isRainbow = false;
   } else {
     newSketchpad(gridSize.value);
-    setTimeout(() => this.classList.remove("button-selected"), 100);
+    this.classList.remove("button-selected");
+    document.querySelector("#color-mode").classList.add("button-selected");
+    colorPicker.addEventListener("input", updatePixelColor);
+    colorPicker.value = "#263140";
+    pixelColor = colorPicker.value;
+    isRainbow = false;
   }
 }
 
 function updatePixelColor() {
   pixelColor = this.value;
+}
+
+function createRainbow() {
+  return Math.floor(Math.random() * 16777216).toString(16);
 }
