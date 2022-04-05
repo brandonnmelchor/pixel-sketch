@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Righteous&display=swap');
 
 * {
   box-sizing: border-box;
@@ -8,7 +8,7 @@
 }
 
 html {
-  font-family: 'Roboto';
+  font-family: 'Righteous';
   font-size: 20px;
   color: #263140;
   text-align: center;
