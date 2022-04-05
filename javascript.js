@@ -69,4 +69,10 @@ buttons.forEach((button) => button.addEventListener("click", activateButton));
 function activateButton() {
   buttons.forEach((button) => button.classList.remove("button-selected"));
   this.classList.add("button-selected");
+
+  let buttonSelected = this.attributes["id"].nodeValue;
+  if (buttonSelected === "clear") {
+    newSketchpad(gridSize.value);
+    setTimeout(() => this.classList.remove("button-selected"), 100);
+  }
 }
