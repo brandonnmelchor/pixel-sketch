@@ -26,8 +26,11 @@ function createDivs(gridSize) {
 
     div.classList.add("pixel");
     div.addEventListener("mousedown", startDrawing);
+    div.addEventListener("touchdown", startDrawing, { passive: false });
     div.addEventListener("mousemove", continueDrawing);
+    div.addEventListener("touchmove", continueDrawing, { passive: false });
     div.addEventListener("mouseup", () => (isDrawing = false));
+    div.addEventListener("touchup", () => (isDrawing = false), { passive: false });
   }
 }
 
