@@ -1,13 +1,8 @@
+// Creating and updating the sketchpad area.
+
 const sketchpad = document.querySelector(".sketchpad");
 const gridSize = document.querySelector("#grid-size");
 const gridSizeOutput = document.querySelector("#grid-size-output");
-
-const colorPicker = document.querySelector("#color-picker");
-colorPicker.addEventListener("input", updatePixelColor);
-let pixelColor = colorPicker.value;
-
-let isDrawing = false;
-let isRainbow = false;
 
 gridSize.addEventListener("input", () => {
   printGridSize(gridSize.value);
@@ -40,41 +35,9 @@ function createGrid(gridSize) {
   sketchpad.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`;
 }
 
-function startDrawing() {
-  isDrawing = true;
-
-  if (isRainbow === true) {
-    this.style.backgroundColor = `#${createRainbow()}`;
-  } else {
-    this.style.backgroundColor = pixelColor;
-  }
-}
-
-function continueDrawing() {
-  if (isDrawing === true) {
-    if (isRainbow === true) {
-      this.style.backgroundColor = `#${createRainbow()}`;
-    } else {
-      this.style.backgroundColor = pixelColor;
-    }
-  }
-}
-
 newSketchpad(gridSize.value);
 
-VANTA.TRUNK({
-  el: document.querySelector("html"),
-  mouseControls: true,
-  touchControls: true,
-  gyroControls: false,
-  minHeight: 200.0,
-  minWidth: 200.0,
-  scale: 1.0,
-  scaleMobile: 1.0,
-  color: 0x9bcac0,
-  backgroundColor: 0xfcfcfc,
-  spacing: 15.0,
-});
+// Changing color modes and button functionalities.
 
 const buttons = document.querySelectorAll("button");
 buttons.forEach((button) => button.addEventListener("click", activateButton));
@@ -110,6 +73,14 @@ function activateButton() {
   }
 }
 
+// Updating pixelColor.
+
+const colorPicker = document.querySelector("#color-picker");
+colorPicker.addEventListener("input", updatePixelColor);
+
+let pixelColor = colorPicker.value;
+let isRainbow = false;
+
 function updatePixelColor() {
   pixelColor = this.value;
 }
@@ -117,3 +88,37 @@ function updatePixelColor() {
 function createRainbow() {
   return Math.floor(Math.random() * 16777216).toString(16);
 }
+
+// Using pixelColor to draw on sketchpad.
+
+let isDrawing = false;
+
+function startDrawing() {
+  isDrawing = true;
+
+  if (isRainbow === true) this.style.backgroundColor = `#${createRainbow()}`;
+  else this.style.backgroundColor = pixelColor;
+}
+
+function continueDrawing() {
+  if (isDrawing === true) {
+    if (isRainbow === true) this.style.backgroundColor = `#${createRainbow()}`;
+    else this.style.backgroundColor = pixelColor;
+  }
+}
+
+// Vanta background script.
+
+VANTA.TRUNK({
+  el: document.querySelector("html"),
+  mouseControls: true,
+  touchControls: true,
+  gyroControls: false,
+  minHeight: 200.0,
+  minWidth: 200.0,
+  scale: 1.0,
+  scaleMobile: 1.0,
+  color: 0x9bcac0,
+  backgroundColor: 0xfcfcfc,
+  spacing: 15.0,
+});
