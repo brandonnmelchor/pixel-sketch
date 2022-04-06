@@ -47,30 +47,32 @@ function activateButton() {
   this.classList.add("button-selected");
   let buttonSelected = this.attributes["id"].nodeValue;
 
-  if (buttonSelected === "color-mode") {
-    colorPicker.addEventListener("input", updatePixelColor);
-    pixelColor = colorPicker.value;
-    isRainbow = false;
-  } else if (buttonSelected === "rainbow-mode") {
+  if (buttonSelected === "color") applyColorMode();
+  else if (buttonSelected === "rainbow") {
     colorPicker.removeEventListener("input", updatePixelColor);
     isRainbow = true;
-  } else if (buttonSelected === "transparent-mode") {
-    colorPicker.removeEventListener("input", updatePixelColor);
-    pixelColor = "transparent";
-    isRainbow = false;
-  } else if (buttonSelected === "eraser-mode") {
-    colorPicker.removeEventListener("input", updatePixelColor);
-    pixelColor = "#fcfcfc";
-    isRainbow = false;
-  } else {
-    newSketchpad(gridSize.value);
+  } else if (buttonSelected === "transparent") applyTransparentEraserMode(buttonSelected);
+  else if (buttonSelected === "eraser") applyTransparentEraserMode(buttonSelected);
+  else {
     this.classList.remove("button-selected");
-    document.querySelector("#color-mode").classList.add("button-selected");
-    colorPicker.addEventListener("input", updatePixelColor);
+    newSketchpad(gridSize.value);
+    document.querySelector("#color").classList.add("button-selected");
     colorPicker.value = "#263140";
-    pixelColor = colorPicker.value;
-    isRainbow = false;
+    applyColorMode();
   }
+}
+
+function applyColorMode() {
+  isRainbow = false;
+  colorPicker.addEventListener("input", updatePixelColor);
+  pixelColor = colorPicker.value;
+}
+
+function applyTransparentEraserMode(buttonSelected) {
+  isRainbow = false;
+  colorPicker.removeEventListener("input", updatePixelColor);
+  if (buttonSelected === "eraser") pixelColor = "#fcfcfc";
+  else pixelColor = buttonSelected;
 }
 
 // Updating pixelColor.
@@ -95,7 +97,6 @@ let isDrawing = false;
 
 function startDrawing() {
   isDrawing = true;
-
   if (isRainbow === true) this.style.backgroundColor = `#${createRainbow()}`;
   else this.style.backgroundColor = pixelColor;
 }
