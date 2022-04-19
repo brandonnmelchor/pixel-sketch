@@ -1,4 +1,4 @@
-# Pixel-Sketch
+# Pixel Sketch
 
 I created a Pixel Sketch page using vanilla HTML, CSS, and JavaScript.
 
@@ -13,6 +13,6 @@ Things I learned:
 - Use event listeners to create a dynamic page.
 - Apply event listeners to multiple nodes using loops and nodelist.
 
-https://brandonnmelchor.github.io/Pixel-Sketch/
+https://brandonnmelchor.github.io/pixel-sketch/
 
 ![](https://github.com/brandonnmelchor/Pixel-Sketch/blob/main/media/screenshot.png?raw=true)
